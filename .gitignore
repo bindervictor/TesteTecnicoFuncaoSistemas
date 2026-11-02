@@ -1,0 +1,20 @@
+# Build files
+bin/
+obj/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# VS Code
+.vscode/
+
+#visual studio 
+.vs/
+
+# Others
+*.log
+*.db
+*.DS_Store 
