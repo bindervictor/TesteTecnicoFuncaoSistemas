@@ -22,7 +22,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Clientes", "Index", "Cliente", new { area = "" }, null)</li>                    
+                    <li>@Html.ActionLink("Clientes", "Index", "Cliente", new { area = "" }, null)</li>
                 </ul>
             </div>
         </div>
@@ -39,6 +39,17 @@
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/jtable")
     @Scripts.Render("~/bundles/bootstrap")
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+    <script>
+    $(document).ready(function () {
+        $('#CPF').mask('000.000.000-00');
+        $('#CEP').mask('00000-000');
+        $('#Telefone').mask('(00) 00000-0000');
+    });
+    </script>
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

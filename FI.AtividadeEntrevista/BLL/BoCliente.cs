@@ -15,6 +15,12 @@ namespace FI.AtividadeEntrevista.BLL
         public long Incluir(DML.Cliente cliente)
         {
             DAL.DaoCliente cli = new DAL.DaoCliente();
+
+            cliente.CPF = NormalizarCpf(cliente.CPF);
+
+            if (VerificarExistencia(cliente.CPF))
+                throw new Exception("Já existe um cliente cadastrado com esse CPF!");
+
             return cli.Incluir(cliente);
         }
 
@@ -25,6 +31,15 @@ namespace FI.AtividadeEntrevista.BLL
         public void Alterar(DML.Cliente cliente)
         {
             DAL.DaoCliente cli = new DAL.DaoCliente();
+
+            if (cliente.Id <= 0)
+                throw new Exception("Cliente inválido para alteração.");
+
+            cliente.CPF = NormalizarCpf(cliente.CPF);
+
+            if (cli.VerificarExistencia(cliente.CPF, cliente.Id))
+                throw new Exception("Já existe um cliente cadastrado com esse CPF!");
+            
             cli.Alterar(cliente);
         }
 
@@ -73,10 +88,19 @@ namespace FI.AtividadeEntrevista.BLL
         /// </summary>
         /// <param name="CPF"></param>
         /// <returns></returns>
-        public bool VerificarExistencia(string CPF)
+        public bool VerificarExistencia(string CPF, long Id = 0)
         {
             DAL.DaoCliente cli = new DAL.DaoCliente();
-            return cli.VerificarExistencia(CPF);
+
+            return cli.VerificarExistencia(CPF, Id);
+        }
+
+        private static string NormalizarCpf(string CPF)
+        {
+            if (string.IsNullOrWhiteSpace(CPF))
+                return string.Empty;
+
+            return new string(CPF.Where(c => c >= '0' && c <= '9').ToArray());
         }
     }
 }
