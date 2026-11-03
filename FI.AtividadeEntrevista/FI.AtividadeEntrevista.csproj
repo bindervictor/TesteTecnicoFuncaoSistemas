@@ -42,9 +42,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL\BoBeneficiario.cs" />
     <Compile Include="BLL\BoCliente.cs" />
+    <Compile Include="BLL\CpfUtils.cs" />
+    <Compile Include="DAL\Beneficiarios\DaoBeneficiario.cs" />
     <Compile Include="DAL\Clientes\DaoCliente.cs" />
     <Compile Include="DAL\Padrao\FI.AcessoDados.cs" />
+    <Compile Include="DML\Beneficiario.cs" />
     <Compile Include="DML\Cliente.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
