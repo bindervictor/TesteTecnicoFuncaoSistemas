@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace FI.AtividadeEntrevista.BLL
 {
@@ -27,11 +28,15 @@ namespace FI.AtividadeEntrevista.BLL
             BoBeneficiario boBeneficiario = new BoBeneficiario();
             boBeneficiario.ValidarLista(cliente.Beneficiarios);
 
-            long idCliente = cli.Incluir(cliente);
+            using (TransactionScope transacao = new TransactionScope())
+            {
+                long idCliente = cli.Incluir(cliente);
 
-            boBeneficiario.SincronizarBeneficiariosDoCliente(idCliente, cliente.Beneficiarios, null);
+                boBeneficiario.SincronizarBeneficiariosDoCliente(idCliente, cliente.Beneficiarios, null);
 
-            return idCliente;
+                transacao.Complete();
+                return idCliente;
+            }
         }
 
         /// <summary>
@@ -56,9 +61,14 @@ namespace FI.AtividadeEntrevista.BLL
             BoBeneficiario boBeneficiario = new BoBeneficiario();
             boBeneficiario.ValidarLista(cliente.Beneficiarios);
 
-            cli.Alterar(cliente);
+            using (TransactionScope transacao = new TransactionScope())
+            {
+                cli.Alterar(cliente);
 
-            boBeneficiario.SincronizarBeneficiariosDoCliente(cliente.Id, cliente.Beneficiarios, cliente.BeneficiariosExcluidos);
+                boBeneficiario.SincronizarBeneficiariosDoCliente(cliente.Id, cliente.Beneficiarios, cliente.BeneficiariosExcluidos);
+
+                transacao.Complete();
+            }
         }
 
         /// <summary>
