@@ -16,7 +16,6 @@ namespace WebAtividadeEntrevista.Controllers
             return View();
         }
 
-
         public ActionResult Incluir()
         {
             return View();
@@ -26,7 +25,7 @@ namespace WebAtividadeEntrevista.Controllers
         public JsonResult Incluir(ClienteModel model)
         {
             BoCliente bo = new BoCliente();
-            
+
             if (!this.ModelState.IsValid)
             {
                 List<string> erros = (from item in ModelState.Values
@@ -36,32 +35,37 @@ namespace WebAtividadeEntrevista.Controllers
                 Response.StatusCode = 400;
                 return Json(string.Join(Environment.NewLine, erros));
             }
-            else
+
+            try
             {
-
-                try
+                model.Id = bo.Incluir(new Cliente()
                 {
-                    model.Id = bo.Incluir(new Cliente()
-                    {
-                        CEP = model.CEP,
-                        Cidade = model.Cidade,
-                        Email = model.Email,
-                        Estado = model.Estado,
-                        Logradouro = model.Logradouro,
-                        Nacionalidade = model.Nacionalidade,
-                        Nome = model.Nome,
-                        Sobrenome = model.Sobrenome,
-                        Telefone = model.Telefone,
-                        CPF = model.CPF
-                    });
+                    CEP = model.CEP,
+                    Cidade = model.Cidade,
+                    Email = model.Email,
+                    Estado = model.Estado,
+                    Logradouro = model.Logradouro,
+                    Nacionalidade = model.Nacionalidade,
+                    Nome = model.Nome,
+                    Sobrenome = model.Sobrenome,
+                    Telefone = model.Telefone,
+                    CPF = model.CPF,
+                    Beneficiarios = (model.Beneficiarios ?? new List<BeneficiarioModel>())
+                        .Select(b => new Beneficiario
+                        {
+                            Id = b.Id,
+                            CPF = b.CPF,
+                            Nome = b.Nome,
+                            IdCliente = b.IdCliente
+                        }).ToList()
+                });
 
-                    return Json("Cadastro efetuado com sucesso");
-                }
-                catch (Exception ex)
-                {
-                    Response.StatusCode = 400;
-                    return Json(ex.Message);
-                }
+                return Json("Cadastro efetuado com sucesso");
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 400;
+                return Json(ex.Message);
             }
         }
 
@@ -69,7 +73,7 @@ namespace WebAtividadeEntrevista.Controllers
         public JsonResult Alterar(ClienteModel model)
         {
             BoCliente bo = new BoCliente();
-       
+
             if (!this.ModelState.IsValid)
             {
                 List<string> erros = (from item in ModelState.Values
@@ -79,36 +83,44 @@ namespace WebAtividadeEntrevista.Controllers
                 Response.StatusCode = 400;
                 return Json(string.Join(Environment.NewLine, erros));
             }
-            else
-            {
-                try
-                {
-                    bo.Alterar(new Cliente()
-                    {
-                        Id = model.Id,
-                        CEP = model.CEP,
-                        Cidade = model.Cidade,
-                        Email = model.Email,
-                        Estado = model.Estado,
-                        Logradouro = model.Logradouro,
-                        Nacionalidade = model.Nacionalidade,
-                        Nome = model.Nome,
-                        Sobrenome = model.Sobrenome,
-                        Telefone = model.Telefone,
-                        CPF = model.CPF
-                    });
 
-                    return Json("Cadastro alterado com sucesso");
-                }
-                catch (Exception ex)
+            try
+            {
+                bo.Alterar(new Cliente()
                 {
-                    Response.StatusCode = 400;
-                    return Json(ex.Message);
-                }
+                    Id = model.Id,
+                    CEP = model.CEP,
+                    Cidade = model.Cidade,
+                    Email = model.Email,
+                    Estado = model.Estado,
+                    Logradouro = model.Logradouro,
+                    Nacionalidade = model.Nacionalidade,
+                    Nome = model.Nome,
+                    Sobrenome = model.Sobrenome,
+                    Telefone = model.Telefone,
+                    CPF = model.CPF,
+                    Beneficiarios = (model.Beneficiarios ?? new List<BeneficiarioModel>())
+                        .Select(b => new Beneficiario
+                        {
+                            Id = b.Id,
+                            CPF = b.CPF,
+                            Nome = b.Nome,
+                            IdCliente = b.IdCliente
+                        }).ToList(),
+                    BeneficiariosExcluidos = model.BeneficiariosExcluidos ?? new List<long>()
+                });
+
+                return Json("Cadastro alterado com sucesso");
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 400;
+                return Json(ex.Message);
             }
         }
 
         [HttpGet]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult Alterar(long id)
         {
             BoCliente bo = new BoCliente();
@@ -129,10 +141,16 @@ namespace WebAtividadeEntrevista.Controllers
                     Nome = cliente.Nome,
                     Sobrenome = cliente.Sobrenome,
                     Telefone = cliente.Telefone,
-                    CPF = cliente.CPF
+                    CPF = cliente.CPF,
+                    Beneficiarios = (cliente.Beneficiarios ?? new List<Beneficiario>())
+                        .Select(b => new BeneficiarioModel
+                        {
+                            Id = b.Id,
+                            CPF = b.CPF,
+                            Nome = b.Nome,
+                            IdCliente = b.IdCliente
+                        }).ToList()
                 };
-
-            
             }
 
             return View(model);
@@ -155,7 +173,7 @@ namespace WebAtividadeEntrevista.Controllers
                     crescente = array[1];
 
                 List<Cliente> clientes = new BoCliente().Pesquisa(jtStartIndex, jtPageSize, campo, crescente.Equals("ASC", StringComparison.InvariantCultureIgnoreCase), out qtd);
-
+                
                 //Return result to jTable
                 return Json(new { Result = "OK", Records = clientes, TotalRecordCount = qtd });
             }

@@ -12,7 +12,7 @@ namespace WebAtividadeEntrevista.Models
     public class ClienteModel
     {
         public long Id { get; set; }
-        
+
         /// <summary>
         /// CEP
         /// </summary>
@@ -73,5 +73,14 @@ namespace WebAtividadeEntrevista.Models
         [Required]
         public string CPF { get; set; }
 
-    }    
+        /// <summary>
+        /// Beneficiários do cliente
+        /// </summary>
+        public List<BeneficiarioModel> Beneficiarios { get; set; } = new List<BeneficiarioModel>();
+
+        /// <summary>
+        /// Ids dos beneficiários excluídos explicitamente na tela
+        /// </summary>
+        public List<long> BeneficiariosExcluidos { get; set; } = new List<long>();
+    }
 }
