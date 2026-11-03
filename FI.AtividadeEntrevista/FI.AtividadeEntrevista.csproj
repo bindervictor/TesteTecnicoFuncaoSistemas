@@ -39,6 +39,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -53,11 +54,18 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DAL\Beneficiarios\Procedures\FI_SP_AltBenef.sql" />
+    <Content Include="DAL\Beneficiarios\Procedures\FI_SP_ConsBenefDoCliente.sql" />
+    <Content Include="DAL\Beneficiarios\Procedures\FI_SP_DelBeneficiario.sql" />
+    <Content Include="DAL\Beneficiarios\Procedures\FI_SP_IncBeneficiario.sql" />
+    <Content Include="DAL\Beneficiarios\Tabelas\FI_TB_Beneficiarios.sql" />
     <Content Include="DAL\Clientes\Procedures\FI_SP_AltCliente.sql" />
     <Content Include="DAL\Clientes\Procedures\FI_SP_ConsCliente.sql" />
     <Content Include="DAL\Clientes\Procedures\FI_SP_DelCliente.sql" />
-    <Content Include="DAL\Clientes\Procedures\FI_SP_IncCliente.sql" />
+    <Content Include="DAL\Clientes\Procedures\FI_SP_IncClienteV2.sql" />
     <Content Include="DAL\Clientes\Procedures\FI_SP_PesqCliente.sql" />
+    <Content Include="DAL\Clientes\Procedures\FI_SP_VerificaCliente.sql" />
+    <Content Include="DAL\Clientes\Tabelas\FI_TB_Clientes_CPF.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
