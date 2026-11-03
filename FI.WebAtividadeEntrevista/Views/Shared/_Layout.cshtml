@@ -46,7 +46,15 @@
     $(document).ready(function () {
         $('#CPF, #BenefCPF').mask('000.000.000-00');
         $('#CEP').mask('00000-000');
-        $('#Telefone').mask('(00) 00000-0000');
+
+        var mascaraTelefone = function (val) {
+            return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+        };
+        $('#Telefone').mask(mascaraTelefone, {
+            onKeyPress: function (val, e, field, options) {
+                field.mask(mascaraTelefone.apply({}, arguments), options);
+            }
+        });
     });
     </script>
 

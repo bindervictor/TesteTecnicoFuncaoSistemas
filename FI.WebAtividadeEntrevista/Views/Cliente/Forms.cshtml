@@ -132,10 +132,10 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalBeneficiariosLabel">Beneficiários</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>
                 </button>
+                <h4 class="modal-title" id="modalBeneficiariosLabel">Beneficiários</h4>
             </div>
 
             <form id="formBeneficiario">
@@ -143,26 +143,27 @@
                     <input type="hidden" id="BenefIndiceEdicao" value="-1" />
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <div class="form-group">
-                                <label for="BenefNome">Nome</label>
-                                <input required="required" type="text" class="form-control" id="BenefNome" name="Nome" maxlength="50" placeholder="João da Silva">
+                                <label for="BenefCPF">CPF:</label>
+                                <input required="required" type="text" class="form-control" id="BenefCPF" name="CPF" placeholder="Ex.: 010.011.111-00" maxlength="14">
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <div class="form-group">
-                                <label for="BenefCPF">CPF</label>
-                                <input required="required" type="text" class="form-control" id="BenefCPF" name="CPF" placeholder="Ex.: 999.999.999-99" maxlength="14">
+                                <label for="BenefNome">Nome:</label>
+                                <input required="required" type="text" class="form-control" id="BenefNome" name="Nome" maxlength="50" placeholder="Ex.: Maria">
                             </div>
                         </div>
 
-                        <div class="col-md-6">
-                            <button type="submit" id="btnIncluirBeneficiario" class="btn btn-success">Incluir</button>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>&nbsp;</label>
+                                <button type="submit" id="btnIncluirBeneficiario" class="btn btn-success btn-block">Incluir</button>
+                            </div>
                         </div>
                     </div>
-
-                    <br />
 
                     <div class="row">
                         <div class="col-xs-12">
