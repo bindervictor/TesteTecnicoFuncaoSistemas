@@ -1,4 +1,4 @@
-﻿﻿
+﻿
 <form id="formCadastro" method="post">
     <div class="row">
         <div class="col-md-6">
@@ -17,7 +17,6 @@
     </div>
 
     <div class="row">
-
         <div class="col-md-6">
             <div class="form-group">
                 <label for="CPF">CPF:</label>
@@ -31,8 +30,8 @@
                 <input required="required" type="text" class="form-control" id="Nacionalidade" name="Nacionalidade" placeholder="Ex.: brasileira" maxlength="50">
             </div>
         </div>
-
     </div>
+
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
@@ -102,7 +101,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="Telefone">Telefone:</label>
-                <input required="required" type="tel" class="form-control" id="Telefone" name="Telefone" placeholder="Ex.: (11) 99999-9999" maxlength="15">
+                <input required="required" type="tel" class="form-control" id="Telefone" name="Telefone" placeholder="Ex.: (11) 2020-3030" maxlength="15">
             </div>
         </div>
     </div>
@@ -116,5 +115,71 @@
         </div>
     </div>
 
-
+    <div class="row">
+        <div class="col-lg-1">
+            <div class="pull-left">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalBeneficiarios">
+                    Beneficiários
+                </button>
+            </div>
+        </div>
+    </div>
 </form>
+
+
+
+<div class="modal fade" id="modalBeneficiarios" tabindex="-1" role="dialog" aria-labelledby="modalBeneficiariosLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalBeneficiariosLabel">Beneficiários</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form id="formBeneficiario">
+                <div class="modal-body">
+                    <input type="hidden" id="BenefIndiceEdicao" value="-1" />
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="BenefNome">Nome</label>
+                                <input required="required" type="text" class="form-control" id="BenefNome" name="Nome" maxlength="50" placeholder="João da Silva">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="BenefCPF">CPF</label>
+                                <input required="required" type="text" class="form-control" id="BenefCPF" name="CPF" placeholder="Ex.: 999.999.999-99" maxlength="14">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <button type="submit" id="btnIncluirBeneficiario" class="btn btn-success">Incluir</button>
+                        </div>
+                    </div>
+
+                    <br />
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>CPF</th>
+                                        <th>Nome</th>
+                                        <th class="text-center">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodyBeneficiarios"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
